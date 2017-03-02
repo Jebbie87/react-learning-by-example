@@ -2,13 +2,6 @@ import React, { Component } from 'react'
 import { getFunName } from '../helpers'
 
 export default class StorePicker extends Component {
-  // constructor() {
-  //   super()
-  //   this.state = {
-  //     storeName: ''
-  //   }
-  // }
-
   goToStore = (event) => {
     event.preventDefault()
     console.log('You changed the URL')
