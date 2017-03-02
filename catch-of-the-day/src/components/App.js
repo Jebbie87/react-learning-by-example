@@ -27,6 +27,12 @@ export default class App extends Component {
         context: this,
         state: 'fishes'
       })
+
+    const localStorageRef = localStorage.getItem(`order-${this.props.params.storeId}`)
+
+    if (localStorageRef) {
+      this.setState({ order: JSON.parse(localStorageRef)})
+    }
   }
 
   componentWillUnmount() {
