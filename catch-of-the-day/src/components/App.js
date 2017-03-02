@@ -30,6 +30,10 @@ export default class App extends Component {
     base.removeBinding(this.ref)
   }
 
+  componentWillUpdate(nextProps, nextState) {
+    localStorage.setItem(`order-${this.props.params.storeId}`, JSON.stringify(nextState.order))
+  }
+
   addFish(fish) {
     //update our state
     const fishes = { ...this.state.fishes }
@@ -67,7 +71,7 @@ export default class App extends Component {
             }
           </ul>
         </div>
-          <Order fishes={this.state.fishes} order={this.state.order}/>
+          <Order fishes={this.state.fishes} order={this.state.order} params={this.props.params}/>
           <Inventory addFish={this.addFish} loadSamples={this.loadSamples}/>
       </div>
     )
