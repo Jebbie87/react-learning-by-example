@@ -17,6 +17,8 @@ export default class App extends Component {
     this.loadSamples = this.loadSamples.bind(this)
     this.addToOrder = this.addToOrder.bind(this)
     this.updateFish = this.updateFish.bind(this)
+    this.removeFish = this.removeFish.bind(this)
+    this.removeFromOrder = this.removeFromOrder.bind(this)
   }
 
   componentWillMount() {
@@ -35,12 +37,6 @@ export default class App extends Component {
     localStorage.setItem(`order-${this.props.params.storeId}`, JSON.stringify(nextState.order))
   }
 
-  updateFish(key, updatedFish) {
-    const fishes = {...this.state.fishes}
-    fishes[key] = updatedFish
-    this.setState({ fishes: fishes })
-  }
-
   addFish(fish) {
     //update our state
     const fishes = { ...this.state.fishes }
@@ -49,6 +45,24 @@ export default class App extends Component {
     fishes[`fish-${timestamp}`] = fish
     //set state
     this.setState({ fishes: fishes })
+  }
+
+  updateFish(key, updatedFish) {
+    const fishes = {...this.state.fishes}
+    fishes[key] = updatedFish
+    this.setState({ fishes: fishes })
+  }
+
+  removeFish(key) {
+    const fishes = {...this.state.fishes}
+    fishes[key] = null
+    this.setState({ fishes: fishes })
+  }
+
+  removeFromOrder(key) {
+    const order = {...this.state.order}
+    delete order[key]
+    this.setState({ order: order })
   }
 
   loadSamples() {
@@ -78,8 +92,19 @@ export default class App extends Component {
             }
           </ul>
         </div>
-          <Order fishes={this.state.fishes} order={this.state.order} params={this.props.params}/>
-          <Inventory updateFish={this.updateFish} fishes={this.state.fishes} addFish={this.addFish} loadSamples={this.loadSamples}/>
+          <Order
+            fishes={this.state.fishes}
+            order={this.state.order}
+            params={this.props.params}
+            removeFromOrder={this.removeFromOrder}
+          />
+          <Inventory
+            updateFish={this.updateFish}
+            fishes={this.state.fishes}
+            addFish={this.addFish}
+            loadSamples={this.loadSamples}
+            removeFish={this.removeFish}
+          />
       </div>
     )
   }
