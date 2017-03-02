@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 
 export default class AddFishForm extends Component {
-
-
-
   createFish(event) {
     event.preventDefault()
     console.log('Gonna make some fish')
