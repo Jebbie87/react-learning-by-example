@@ -3,19 +3,9 @@ import AddFishForm from './AddFishForm'
 import base from '../base'
 
 export default class Inventory extends Component {
-
-  constructor() {
-    super()
-    this.state = {
-      uid: null,
-      owner: null,
-    }
-    this.renderInventory = this.renderInventory.bind(this)
-    this.handleChange = this.handleChange.bind(this)
-    this.authenticate = this.authenticate.bind(this)
-    this.renderLogin = this.renderLogin.bind(this)
-    this.authHandler = this.authHandler.bind(this)
-    this.logout = this.logout.bind(this)
+  state = {
+    uid: null,
+    owner: null,
   }
 
   componentDidMount() {
@@ -26,7 +16,7 @@ export default class Inventory extends Component {
     })
   }
 
-  handleChange(e, key) {
+  handleChange = (e, key) => {
     const fish = this.props.fishes[key]
     const updatedFish = {
       ...fish,
@@ -35,7 +25,7 @@ export default class Inventory extends Component {
     this.props.updateFish(key, updatedFish)
   }
 
-  renderLogin() {
+  renderLogin = () => {
     return (
       <nav className='login'>
         <h2>Inventory</h2>
@@ -46,18 +36,18 @@ export default class Inventory extends Component {
     )
   }
 
-  authenticate(provider) {
+  authenticate = (provider) => {
     base.authWithOAuthPopup(provider, this.authHandler)
   }
 
-  logout() {
+  logout = () => {
     base.unauth();
     this.setState({
       uid: null
     })
   }
 
-  authHandler(err, authData) {
+  authHandler = (err, authData) => {
     console.log(authData)
     if(err) {
       console.log(err)
@@ -83,7 +73,7 @@ export default class Inventory extends Component {
 
   }
 
-  renderInventory(key) {
+  renderInventory = (key) => {
     const fish = this.props.fishes[key]
     return (
       <div className='fish-edit' key={key}>
